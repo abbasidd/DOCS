@@ -3,7 +3,7 @@
     "ethereum": {
       "type": "ethereum",
       "from": "0xD260517CE442379231A7Fe62FD555D2E345F316f",
-      "keystore": "/home/usman/.dapp/testnet/8545/keystore",
+      "keystore": "/home/usman/.ethereum/keystore",
       "password": "/home/usman/.dapp/testnet/8545/keystore/pass",
       "network": "http://127.0.0.1:8545"
     },
@@ -19,6 +19,6 @@
     "sources":["setzer"],
     "transports":["spire"],
     "pairs": {
-      "ETH":{"msgExpiration":1800,"msgSpread":0.5}
+      "ETH/GSU":{"msgExpiration":1800,"msgSpread":0.5}
     }
   }

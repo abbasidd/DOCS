@@ -19,7 +19,7 @@
     "sources":["gofer"],
     "transports":["spire"],
     "pairs": {
-      "ETH":{"msgExpiration":1800,"msgSpread":0.5}
+      "ETHGSU":{"msgExpiration":1800,"msgSpread":0.5}
     }
   }
     
