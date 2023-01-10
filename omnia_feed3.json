@@ -13,10 +13,10 @@
       "srcTimeout": 10,
       "setzerTimeout": 10,
       "setzerCacheExpiry": 120,
-      "setzerMinMedian": 3,
+      "setzerMinMedian": 1,
       "setzerEthRpcUrl": "http://geth.local:8545"
     },
-    "sources":["gofer"],
+    "sources":["setzer"],
     "transports":["spire"],
     "pairs": {
       "ETHGSU":{"msgExpiration":1800,"msgSpread":0.5}

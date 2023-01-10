@@ -96,7 +96,9 @@ This will require the address you are submitting the query from to be whiteliste
 
 1 . git clone https://github.com/block360/oracle-suite.git
 
-2 . RUN this export BUILD_DIR=`<Your bin path>` make; //like /usr/bin/ 
+2. cd oracle-suite
+
+3 . RUN this export BUILD_DIR=`<Your bin path>` make; //like /usr/bin/ 
 
 This point pertains to the second point. If you do not specify a build directory, the binary will be created in the current project directory, and you can navigate to it and run it using './gofer agent'.
 
