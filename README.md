@@ -299,6 +299,7 @@ Query USD price feeds
 >You shuld have to change the setzer path in nix store where omnia is present
 file name : exec/source-setzer and bin/omnia
 add `/usr/local/bin/setzer` in PATH enviroment variable.
+> cat $(which omnia) and open the parent dictory in exec command 
 ## Usage
 
 ```
