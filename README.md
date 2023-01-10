@@ -96,7 +96,7 @@ This will require the address you are submitting the query from to be whiteliste
 
 1 . git clone https://github.com/block360/oracle-suite.git
 
-2. cd oracle-suite
+2 . cd oracle-suite
 
 3 . RUN this export BUILD_DIR=`<Your bin path>` make; //like /usr/bin/ 
 
