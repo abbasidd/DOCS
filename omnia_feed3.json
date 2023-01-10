@@ -1,0 +1,25 @@
+{
+    "mode": "feed",
+    "ethereum": {
+      "type": "ethereum",
+      "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "keystore": "/home/usman/.ethereum/keystore",
+      "password": "/home/usman/.dapp/testnet/8545/keystore/pass",
+      "network": "http://127.0.0.1:8545"
+    },
+    "options": {
+      "interval": 60,
+      "msgLimit": 35,
+      "srcTimeout": 10,
+      "setzerTimeout": 10,
+      "setzerCacheExpiry": 120,
+      "setzerMinMedian": 3,
+      "setzerEthRpcUrl": "http://geth.local:8545"
+    },
+    "sources":["gofer"],
+    "transports":["spire"],
+    "pairs": {
+      "ETH":{"msgExpiration":1800,"msgSpread":0.5}
+    }
+  }
+    
