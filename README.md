@@ -10,6 +10,11 @@ Goals of this new architecture are:
 5. Make it easy to on-board price feeds for new collateral types, and
 6. Make it easy to on-board new Oracles.
 
+
+### Their Architecture
+![plot](./old_architecture.png)
+### Our Architecture
+![plot](./new_architecture.png)
 ## Design Goals
 
 
@@ -22,23 +27,6 @@ Each Feed runs a Feed client which pulls prices redundantly with [Setzer]() and 
 ### Relay
 
 Relays monitor the broadcast messages, check for liveness, and homogenize the pricing data and signatures into a single ethereum transaction to be posted to the on-chain oracles.
-
-## [Live Goerli Oracles]
-
-See [./omnia/config/relay-goerli.conf](./omnia/config/relay-goerli.conf)
-
-| Pair         | Oracle    |
-|--------------|-----------|
-| AAVE/USD | 0x48d9b9B980EcB23601E4cE5D0f828Ad1F3c8673f |
-
-## [Live Mainnet Oracles]
-
-See [./omnia/config/relay.conf](./omnia/config/relay.conf)
-
-| Pair         | Oracle    |
-|--------------|-----------|
-| BTC/USD | 0xe0F30cb149fAADC7247E953746Be9BbBB6B5751f |
-
 
 ## Query Oracle Contracts
 
@@ -58,15 +46,23 @@ cast --from-wei $(cast --to-dec $(cast call <ORACLE_CONTRACT> "read()(uint256)")
 This will require the address you are submitting the query from to be whitelisted in the Oracle smart contract.
 
 
-### Their Architecture
-![plot](./old_architecture.png)
-### Our Architecture
-![plot](./new_architecture.png)
->Oracle client written in bash that utilizes secure scuttlebutt for offchain message passing along with signed price data to validate identity and authenticity on-chain.
-# GOFER 
+>Oracle client written in bash that utilizes secure spire for offchain message passing along with signed price data to validate identity and authenticity on-chain.
 
+#### The Oracle uses these services :
+  
+  1. Gofer
+  2. Setzer
+  3. Spire
+  4. Omnia
+  
+  >Each of them are explained below
+
+# GOFER 
+>Gofer is a tool that provides reliable asset prices taken from various sources.
+
+If you need reliable price information, getting them from a single source is not the best idea. The data source may fail or provide incorrect data. Gofer solves this problem. With Gofer, you can define precise price models that specify exactly, from how many sources you want to pull prices and what conditions they must meet to be considered reliable.
 ## Installation
-**##PREREQUISITE** It is recommended that you install Go version 1.18.1 on your system.:
+>**##PREREQUISITE** It is recommended that you install Go version 1.18.1 on your system.:
 
 1 . git clone https://github.com/block360/oracle-suite.git
 
@@ -401,7 +397,6 @@ This is based on libp2p which is a peer-to-peer networking protocol designed to 
 
 
 
-# **1. FEED**
 # Omnia
 >`git clone https://github.com/chronicleprotocol/omnia.git`
 
@@ -428,7 +423,7 @@ export GOFER_CONFIG=/home/usman/Videos/oracles/systemd/gofer.json
 ## command to run omnia
 >`omnia` 
 
-You can execute either the "feed" or "relay" command according to the configuration file.
+You can execute either the "feed" or "relay" omnia according to the configuration file.
 ## sample config for Feed
 
  ``` json
@@ -464,21 +459,13 @@ You can execute either the "feed" or "relay" command according to the configurat
   
   ```
   
-  # **RELAY**
-  # Relayer
+## sample config for Relay
 
 >you should have to export these env variable in your terminal 
 
 export SPIRE_CONFIG=/home/usman/docs/spire_feed1.json
 export OMNIA_CONFIG=/home/usman/docs/omnia_feed1.json
 export GOFER_CONFIG=/home/usman/Videos/oracles/systemd/gofer.json
-## command to run omnia
-``` BASH 
-omnia 
-```
-
-# sample config 
-
  ``` json
  {
   "mode": "relay",
