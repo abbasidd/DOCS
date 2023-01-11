@@ -1,13 +1,6 @@
 # **ORACLES**
->Oracle client written in bash that utilizes secure scuttlebutt for offchain message passing along with signed price data to validate identity and authenticity on-chain.
-# Installation
 
-**1 . git clone https://github.com/block360/oracle-suite.git**
-
-**2 . RUN this export BUILD_DIR=`<Your bin path>` make; //like /usr/bin/** 
-
-## Design Goals
-
+## Architecture
 Goals of this new architecture are:
 
 1. Scalability,
@@ -17,11 +10,7 @@ Goals of this new architecture are:
 5. Make it easy to on-board price feeds for new collateral types, and
 6. Make it easy to on-board new Oracles.
 
-## Architecture
-### Their Architecture
-![plot](./old_architecture.png)
-### Our Architecture
-![plot](./new_architecture.png)
+## Design Goals
 
 
 There are currently two main modules:
@@ -69,31 +58,16 @@ cast --from-wei $(cast --to-dec $(cast call <ORACLE_CONTRACT> "read()(uint256)")
 This will require the address you are submitting the query from to be whitelisted in the Oracle smart contract.
 
 
-  # **SPIRE**
+### Their Architecture
+![plot](./old_architecture.png)
+### Our Architecture
+![plot](./new_architecture.png)
+>Oracle client written in bash that utilizes secure scuttlebutt for offchain message passing along with signed price data to validate identity and authenticity on-chain.
+# GOFER 
 
-> this is based on libp2p which is a peer-to-peer networking protocol designed to enable decentralized communication and file sharing over the internet. It is a modular, open-source networking protocol that allows nodes to communicate with each other directly, without the need for a central server or infrastructure.
+## Installation
+**##PREREQUISITE** It is recommended that you install Go version 1.18.1 on your system.:
 
-## spire have config file which consists of different attr
-### one of the is
-> '"transport":{
->      "libp2p": {
->        "directPeersAddrs":[]}}
-
-> this attr is reponsible for the making the peers, So we have to give the info like "/ip4/192.168.18.109/tcp/37705/p2p/12D3KooWPFpaE13gph8p6jdNGJv1M6fwDro8kdst53MUzVpuSJUL" i.e **"\<ip-version>/\<host>/\<protocol>/\<port>/\<type>/\<peer_id>"** w.r.t the quorum of median. 
-
-### command to run spire
-**spire agent -c /home/usman/docs/spire_feed2.json --log.verbosity debug**
-
-## how it will work
-
-> we should run the 3 feeds with the 3 spires 
-
-> every feed should have their own omnia
-> means the config file have the right omnia addr pasted in feed object of spire's config
-  # **GOFER**
-
-# Installation
-**##NOTE** It is recommended that you install Go version 1.18.1 on your system.
 1 . git clone https://github.com/block360/oracle-suite.git
 
 2 . cd oracle-suite
@@ -104,11 +78,11 @@ This point pertains to the second point. If you do not specify a build directory
 
 This will install gofer with updated source code that retrieves pricing data from our rate API.
 
-# Running the gofer 
+## Running the gofer 
 
 > Gofer consists of two components that function like a client/server architecture: the gofer agent (server) and the gofer. The gofer agent should be running in order for the gofer to be able to pull prices from it.
 
-For running the the agent:
+**For running the the agent**:
 `gofer agent -c ./gofer.json --log.verbosity info`
 
 For getting the price from terminal:
@@ -116,7 +90,7 @@ For getting the price from terminal:
 `gofer prices ETH/USD -c ./gofer.json --format trace`
 
 
-# Sample config file gofer.json.
+## Sample config file gofer.json.
 
 
 
@@ -291,15 +265,15 @@ For getting the price from terminal:
 # **SETZER**
   # Installation
 
-1 . git clone git@github.com:abbasidd/setzer.git
+1 . git clone https://github.com/block360/setzer.git
 
 
 # Setzer MCD
 
 Query USD price feeds
 
-> cat $(which omnia) and open the parent dictory in exec command 
->You shuld have to change the setzer path in nix store where omnia is present
+`cat $(which omnia)` and open the parent dictory in last line command 
+You shuld have to change the setzer path in nix store where omnia is present
 file name that will be changed : exec/source-setzer and bin/omnia
 add `/usr/local/bin/setzer` in PATH enviroment variable.
 ## Usage
@@ -402,10 +376,47 @@ It will start docker in interactove mode and you will be able to run E2E tests u
 $ go test -v -parallel 1 -cpu 1 ./...
 ```
 
+
+  # **SPIRE**
+
+This is based on libp2p which is a peer-to-peer networking protocol designed to enable decentralized communication and file sharing over the internet. It is a modular, open-source networking protocol that allows nodes to communicate with each other directly, without the need for a central server or infrastructure.
+
+**spire have config file which consists of different attributes**
+```json 
+"transport":{
+      "libp2p": {
+        "directPeersAddrs":[]}}
+  ```
+
+ this attribute is reponsible for the making the peers, So we have to give the info like `/ip4/192.168.18.109/tcp/37705/p2p/12D3KooWPFpaE13gph8p6jdNGJv1M6fwDro8kdst53MUzVpuSJUL` i.e **"\<ip-version>/\<host>/\<protocol>/\<port>/\<type>/\<peer_id>"** w.r.t the quorum of median. 
+
+### command to run spire
+**spire agent -c /home/usman/docs/spire_feed2.json --log.verbosity debug**
+
+### how it will work
+
+ we should run the 3 feeds with the 3 spires 
+ every feed should have their own omnia
+ means the config file have the right omnia addr pasted in feed object of spire's config
+
+
+
 # **1. FEED**
+# Omnia
+>`git clone https://github.com/chronicleprotocol/omnia.git`
+
+>`cd omnia` 
+## Quickstart
+
+Some convenience targets for `make` are available. If you have Docker installed, you can do
+
+```
+make build          # build all the images
+make run            # run images after they're built
+make test           # build and run integration tests
+```
 
 > So  You should have spire, you will get it from this repository: https://github.com/makerdao/oracle-suite.git. After that you have to configure it. the guide is in the mentioned file named spire.md and sample config file named spire_feed1.json.
-> After that you have install omnia from this repository: https://github.com/chronicleprotocol/omnia.git
 
 >**you should have to export these env variable in your terminal** 
 
@@ -415,9 +426,10 @@ export OMNIA_CONFIG=/home/usman/docs/omnia_feed1.json
 export GOFER_CONFIG=/home/usman/Videos/oracles/systemd/gofer.json
 ```
 ## command to run omnia
-omnia 
+>`omnia` 
 
-# sample config 
+You can execute either the "feed" or "relay" command according to the configuration file.
+## sample config for Feed
 
  ``` json
  {

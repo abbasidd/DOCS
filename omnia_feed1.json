@@ -19,6 +19,6 @@
     "sources":["setzer"],
     "transports":["spire"],
     "pairs": {
-      "ETH/GSU":{"msgExpiration":1800,"msgSpread":0.5}
+      "ETHUSD":{"msgExpiration":1800,"msgSpread":0.5}
     }
   }

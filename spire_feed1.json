@@ -7,8 +7,8 @@
     "transport":{
       "libp2p": {
         "directPeersAddrs": [
-            "/ip4/192.168.18.109/tcp/38659/p2p/12D3KooWCjkrVNLANuFgshcjevdyAa9uhSMwCqWwKvf4G7zYktie",
-            "/ip4/192.168.18.109/tcp/33563/p2p/12D3KooWJYUv5rFtBpPhDqSWbDYUkcnBBEUYcqJNcP2kfFY7zTsn"
+            "/ip4/192.168.18.109/tcp/33803/p2p/12D3KooWG6ANFhdd8igq3cF3KBrZpTuZ7tXXfDz98Tr3zq7sceWq",
+            "/ip4/192.168.18.109/tcp/35787/p2p/12D3KooWKAaecPDv6XRkKcc3TBMX7zpwqwQA2icy4m5NvrGSg7LQ"
   
         ]
       }
@@ -23,7 +23,7 @@
         "address": "127.0.0.1:8083"
       },
       "pairs": [
-        "ETHGSU"
+        "ETHUSD"
       ]
     }
   }
