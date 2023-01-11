@@ -93,7 +93,7 @@ This will require the address you are submitting the query from to be whiteliste
   # **GOFER**
 
 # Installation
-
+**##NOTE** It is recommended that you install Go version 1.18.1 on your system.
 1 . git clone https://github.com/block360/oracle-suite.git
 
 2 . cd oracle-suite
