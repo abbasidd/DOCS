@@ -315,32 +315,27 @@ You can execute either the "feed" or "relay" omnia according to the configuratio
 
  ``` json
  {
+    "mode": "feed",
     "ethereum": {
+      "type": "ethereum",
       "from": "0xD260517CE442379231A7Fe62FD555D2E345F316f",
-      "keystore": "/home/usman/.dapp/testnet/8545/keystore",
-      "password": "/home/usman/.dapp/testnet/8545/keystore/pass"
+      "keystore": "/home/usman/.ethereum/keystore",
+      "password": "/home/usman/.dapp/testnet/8545/keystore/pass",
+      "network": "http://127.0.0.1:8545"
     },
-    "transport":{
-      "libp2p": {
-        "directPeersAddrs": [
-            "/ip4/192.168.18.109/tcp/40969/p2p/12D3KooWKhhhiDqgCSfamK1stGUJuth8W4FFovDJhJDSNWFzXUPP",
-            "/ip4/192.168.18.109/tcp/39577/p2p/12D3KooWDXWF9oMCcZYvrfua6tSTuaZvTvyCBedxwgtiJ5CiB9Fo"
-  
-        ]
-      }
+    "options": {
+      "interval": 60,
+      "msgLimit": 35,
+      "srcTimeout": 10,
+      "setzerTimeout": 10,
+      "setzerCacheExpiry": 120,
+      "setzerMinMedian": 1,
+      "setzerEthRpcUrl": "http://geth.local:8545"
     },
-    "feeds": [
-  "0xD260517CE442379231A7Fe62FD555D2E345F316f",
-  "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-  "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
-    ],
-    "spire": {
-      "rpc": {
-        "address": "127.0.0.1:8083"
-      },
-      "pairs": [
-        "ETHUSD"
-      ]
+    "sources":["setzer"],
+    "transports":["spire"],
+    "pairs": {
+      "ETHUSD":{"msgExpiration":1800,"msgSpread":0.5}
     }
   }
   
