@@ -17,6 +17,37 @@ Goals of this new architecture are:
 ![plot](./new_architecture.png)
 ## Design Goals
 
+
+There are currently two main modules:
+
+### Feed
+
+Each Feed runs a Feed client which pulls prices redundantly with [Setzer]() and [Oracle Suite/Gofer](https://github.com/block360/oracle-suite.git), signs them with an ethereum private key, and broadcasts them as a message to the redundant p2p networks (e.g. scuttlebutt and libp2p).
+
+### Relay
+
+Relays monitor the broadcast messages, check for liveness, and homogenize the pricing data and signatures into a single ethereum transaction to be posted to the on-chain oracles.
+
+## Query Oracle Contracts
+
+Query Oracle price Offchain
+
+```
+rawStorage=$(cast storage <ORACLE_CONTRACT> 0x1)
+cast --from-wei $(cast --to-dec ${rawStorage:34:32})
+```
+
+Query Oracle Price Onchain
+
+```
+cast --from-wei $(cast --to-dec $(cast call <ORACLE_CONTRACT> "read()(uint256)"))
+```
+
+This will require the address you are submitting the query from to be whitelisted in the Oracle smart contract.
+
+
+>Oracle client written in bash that utilizes secure spire for offchain message passing along with signed price data to validate identity and authenticity on-chain.
+
 #### The Oracle uses these services :
   
   1. Gofer
@@ -29,6 +60,7 @@ Goals of this new architecture are:
 # GOFER 
 >Gofer is a tool that provides reliable asset prices taken from various sources.
 
+If you need reliable price information, getting them from a single source is not the best idea. The data source may fail or provide incorrect data. Gofer solves this problem. With Gofer, you can define precise price models that specify exactly, from how many sources you want to pull prices and what conditions they must meet to be considered reliable.
 ## Installation
 >**##PREREQUISITE** It is recommended that you install Go version 1.18.1 on your system.:
 
@@ -37,6 +69,10 @@ Goals of this new architecture are:
 2 . cd oracle-suite
 
 3 . RUN this export BUILD_DIR=`<Your bin path>` make; //like /usr/bin/ 
+
+This point pertains to the second point. If you do not specify a build directory, the binary will be created in the current project directory, and you can navigate to it and run it using './gofer agent'.
+
+This will install gofer with updated source code that retrieves pricing data from our rate API.
 
 ## Running the gofer 
 
@@ -223,22 +259,12 @@ For getting the price from terminal:
 ```
 
 # **SETZER**
->**##PREREQUISITE** If you don't have make installed on your system then you can lookup to this article:https://linuxhint.com/install-make-ubuntu/
-Dependencies:
-these should be installed on your system.
-* GNU [bc](https://www.gnu.org/software/bc/)
-* [curl](https://curl.haxx.se/download.html)
-* GNU [datamash](https://www.gnu.org/software/datamash/)
-* GNU `date`
-* [jshon](http://kmkeen.com/jshon/)
-* GNU `timeout`
-
   # Installation
 
-1. git clone https://github.com/block360/setzer.git
-2. cd setzer
-3. make link
-4. make install
+1 . git clone https://github.com/block360/setzer.git
+
+
+# Setzer MCD
 
 Query USD price feeds
 
@@ -246,6 +272,38 @@ Query USD price feeds
 You shuld have to change the setzer path in nix store where omnia is present
 file name that will be changed : exec/source-setzer and bin/omnia
 add `/usr/local/bin/setzer` in PATH enviroment variable.
+## Usage
+
+```
+Usage: setzer <command> [<args>]
+   or: setzer <command> --help
+
+Commands:
+
+   help            Print help about setzer or one of its subcommands
+   pairs           List all supported pairs
+   price           Show price(s) for a given asset or pair
+   sources         Show price sources for a given asset or pair
+   test            Test all price feeds
+```
+
+
+## Installation
+
+Dependencies:
+
+* GNU [bc](https://www.gnu.org/software/bc/)
+* [curl](https://curl.haxx.se/download.html)
+* GNU [datamash](https://www.gnu.org/software/datamash/)
+* GNU `date`
+* [jshon](http://kmkeen.com/jshon/)
+* GNU `timeout`
+
+Install via make:
+
+* `make link` -  link setzer into `/usr/local`
+* `make install` -  copy setzer into `/usr/local`
+* `make uninstall` -  remove setzer from `/usr/local`
 
 ## Configuration
 
@@ -253,10 +311,69 @@ add `/usr/local/bin/setzer` in PATH enviroment variable.
 * `SETZER_CACHE_EXPIRY` - Cache expiry (default: 60) seconds
 * `SETZER_TIMEOUT` - HTTP request timeout (default: 10) seconds
 
+## wstETH pair requirement
+
+Due to process of pulling details from mainnet for getting price information.
+You need to set `ETH_RPC_URL` environemnt variable. By default it will point to `http://127.0.0.1:8545`.
+
+Example of usage: 
+
+```bash
+export ETH_RPC_URL="https://mainnet.infura.io/v3/fac98e56ea7e49608825dfc726fab703"
+```
+
+### Fx/Exchangerates API Key
+Since latest changes in Exchangerates API, now it requires API key.
+To set API Key for this exchange you can use `EXCHANGERATES_API_KEY` env variable. 
+
+Example:
+
+```bash
+$ EXCHANGERATES_API_KEY=your_api_key setzer fx krwusd
+```
+
+### E2E tests
+E2E tests for setzer are written in Go language and relies on [Smocker](https://smocker.dev) for API manipulation.
+
+#### How to setup tests environment
+You have to install Docker on your machine first.
+Then you will have to start [smocker](https://smocker.dev) container.
+
+```bash
+$ docker run -d \
+  --restart=always \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  --name smocker \
+  thiht/smocker
+```
+
+Next step will be to build setzer E2E docker container:
+
+```bash
+$ docker build -t setzer -f e2e/Dockerfile .
+```
+
+Run newly created container:
+
+```bash
+$ docker run -i --rm --link smocker setzer
+```
+
+If you need to write tests or want to continuesly run them while doing something you might use docker interactive mode.
+
+```bash
+$ docker run -it --rm -v $(pwd):/app --link smocker setzer /bin/bash
+```
+
+It will start docker in interactove mode and you will be able to run E2E tests using command: 
+
+```bash
+$ go test -v -parallel 1 -cpu 1 ./...
+```
 
 
   # **SPIRE**
->spire is installed throug oracle-suite project, so it is assumed to be installed on your system
 
 This is based on libp2p which is a peer-to-peer networking protocol designed to enable decentralized communication and file sharing over the internet. It is a modular, open-source networking protocol that allows nodes to communicate with each other directly, without the need for a central server or infrastructure.
 
@@ -284,7 +401,7 @@ This is based on libp2p which is a peer-to-peer networking protocol designed to 
 >`git clone https://github.com/chronicleprotocol/omnia.git`
 
 >`cd omnia` 
-## installation
+## Quickstart
 
 Some convenience targets for `make` are available. If you have Docker installed, you can do
 
