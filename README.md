@@ -32,22 +32,24 @@ Goals of this new architecture are:
 ## Installation
 >**##PREREQUISITE** It is recommended that you install Go version 1.18.1 on your system.:
 
-1 . git clone https://github.com/block360/oracle-suite.git
+    1 . git clone https://github.com/block360/oracle-suite.git
 
-2 . cd oracle-suite
+    2 . cd oracle-suite
 
-3 . RUN this export BUILD_DIR=`<Your bin path>` make; //like /usr/bin/ 
+    3 . RUN this export BUILD_DIR=`<Your bin path>` make; //like /usr/bin/ 
 
+    **For running the the agent**:
+    4 . gofer agent -c ./gofer.json --log.verbosity info
+**NOTE** It will install both gofer and spire.
 ## Running the gofer 
 
 > Gofer consists of two components that function like a client/server architecture: the gofer agent (server) and the gofer. The gofer agent should be running in order for the gofer to be able to pull prices from it.
 
-**For running the the agent**:
-`gofer agent -c ./gofer.json --log.verbosity info`
 
-For getting the price from terminal:
 
-`gofer prices ETH/USD -c ./gofer.json --format trace`
+    For getting the price from terminal:
+
+    `gofer prices ETH/USD -c ./gofer.json --format trace`
 
 
 ## Sample config file gofer.json.
@@ -236,10 +238,10 @@ these should be installed on your system.
 
   # Installation
 
-  1. git clone https://github.com/block360/setzer.git
-  2. cd setzer
-  3. make link
-  4. make install
+      1. git clone https://github.com/block360/setzer.git
+      2. cd setzer
+      3. make link
+      4. make install
 
   Query USD price feeds
   
@@ -268,7 +270,7 @@ This is based on libp2p which is a peer-to-peer networking protocol designed to 
         "directPeersAddrs":[]}}
   ```
 
- this attribute is reponsible for the making the peers, So we have to give the info like `/ip4/192.168.18.109/tcp/37705/p2p/12D3KooWPFpaE13gph8p6jdNGJv1M6fwDro8kdst53MUzVpuSJUL` i.e **"\<ip-version>/\<host>/\<protocol>/\<port>/\<type>/\<peer_id>"** w.r.t the quorum of median. 
+ **this attribute is reponsible for the making the peers, So we have to give the info like `/ip4/192.168.18.109/tcp/37705/p2p/12D3KooWPFpaE13gph8p6jdNGJv1M6fwDro8kdst53MUzVpuSJUL` i.e **"\<ip-version>/\<host>/\<protocol>/\<port>/\<type>/\<peer_id>"** w.r.t the quorum of median.** 
 
 ### command to run spire
 **spire agent -c /home/usman/docs/spire_feed2.json --log.verbosity debug**
@@ -287,14 +289,14 @@ This is based on libp2p which is a peer-to-peer networking protocol designed to 
 >`cd omnia` 
  ## installation
 
-Some convenience targets for `make` are available. If you have Docker installed, you can do
-
-```
-make build          # build all the images
-make run            # run images after they're built
-make test           # build and run integration tests
-omnia # for running the omnia 
-```
+    Some convenience targets for `make` are available. If you have Docker installed, you can do
+    
+    ```
+    make build          # build all the images
+    make run            # run images after they're built
+    make test           # build and run integration tests
+    omnia # for running the omnia 
+    ```
 
 > So  You should have spire, you will get it from this repository: https://github.com/makerdao/oracle-suite.git. After that you have to configure it. the guide is in the mentioned file named spire.md and sample config file named spire_feed1.json.
 
