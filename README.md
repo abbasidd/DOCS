@@ -284,7 +284,7 @@ This is based on libp2p which is a peer-to-peer networking protocol designed to 
 
 
 # Omnia
->`git clone https://github.com/chronicleprotocol/omnia.git`
+>`git clone https://github.com/block360/omnia.git`
 
 >`cd omnia` 
  ## installation
