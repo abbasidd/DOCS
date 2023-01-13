@@ -224,6 +224,7 @@ For getting the price from terminal:
 
 # **SETZER**
 >**##PREREQUISITE** If you don't have make installed on your system then you can lookup to this article:https://linuxhint.com/install-make-ubuntu/
+
 Dependencies:
 these should be installed on your system.
 * GNU [bc](https://www.gnu.org/software/bc/)
@@ -235,27 +236,27 @@ these should be installed on your system.
 
   # Installation
 
-1. git clone https://github.com/block360/setzer.git
-2. cd setzer
-3. make link
-4. make install
+  1. git clone https://github.com/block360/setzer.git
+  2. cd setzer
+  3. make link
+  4. make install
 
-Query USD price feeds
+  Query USD price feeds
+  
+  `cat $(which omnia)` and open the parent dictory in last line command 
+  You shuld have to change the setzer path in nix store where omnia is present
+  file name that will be changed : exec/source-setzer and bin/omnia
+  add `/usr/local/bin/setzer` in PATH enviroment variable.
+  
+  ## Configuration
 
-`cat $(which omnia)` and open the parent dictory in last line command 
-You shuld have to change the setzer path in nix store where omnia is present
-file name that will be changed : exec/source-setzer and bin/omnia
-add `/usr/local/bin/setzer` in PATH enviroment variable.
-
-## Configuration
-
-* `SETZER_CACHE` - Cache directory (default: ~/.setzer)
-* `SETZER_CACHE_EXPIRY` - Cache expiry (default: 60) seconds
-* `SETZER_TIMEOUT` - HTTP request timeout (default: 10) seconds
+  * `SETZER_CACHE` - Cache directory (default: ~/.setzer)
+  * `SETZER_CACHE_EXPIRY` - Cache expiry (default: 60) seconds
+  * `SETZER_TIMEOUT` - HTTP request timeout (default: 10) seconds
+  
 
 
-
-  # **SPIRE**
+# **SPIRE**
 >spire is installed throug oracle-suite project, so it is assumed to be installed on your system
 
 This is based on libp2p which is a peer-to-peer networking protocol designed to enable decentralized communication and file sharing over the internet. It is a modular, open-source networking protocol that allows nodes to communicate with each other directly, without the need for a central server or infrastructure.
@@ -284,7 +285,7 @@ This is based on libp2p which is a peer-to-peer networking protocol designed to 
 >`git clone https://github.com/chronicleprotocol/omnia.git`
 
 >`cd omnia` 
-## installation
+ ## installation
 
 Some convenience targets for `make` are available. If you have Docker installed, you can do
 
@@ -292,6 +293,7 @@ Some convenience targets for `make` are available. If you have Docker installed,
 make build          # build all the images
 make run            # run images after they're built
 make test           # build and run integration tests
+omnia # for running the omnia 
 ```
 
 > So  You should have spire, you will get it from this repository: https://github.com/makerdao/oracle-suite.git. After that you have to configure it. the guide is in the mentioned file named spire.md and sample config file named spire_feed1.json.
