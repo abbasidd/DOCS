@@ -36,7 +36,7 @@ Goals of this new architecture are:
 
     2 . cd oracle-suite
 
-    3 . RUN this export BUILD_DIR=`<Your bin path>` make; //like /usr/bin/ 
+    3 . export BUILD_DIR=`<Your bin path>` make; //like /usr/bin/ 
 
     **For running the the agent**:
     4 . gofer agent -c ./gofer.json --log.verbosity info
@@ -66,116 +66,6 @@ Goals of this new architecture are:
       "address": "127.0.0.1:8081"
     },
     "origins": {
-      "balancerV2": {
-        "type": "balancerV2",
-        "name": "balancerV2",
-        "params": {
-          "symbolAliases": {
-            "ETH": "WETH"
-          },
-          "contracts": {
-            "WETH/GNO": "0xF4C0DD9B82DA36C07605df83c8a416F11724d88b",
-            "Ref:RETH/WETH": "0xae78736Cd615f374D3085123A210448E74Fc6393",
-            "RETH/WETH": "0x1E19CF2D73a72Ef1332C882F20534B6519Be0276",
-            "STETH/WETH": "0x32296969ef14eb0c6d29669c550d4a0449130230",
-            "WETH/YFI": "0x186084ff790c65088ba694df11758fae4943ee9e"
-          }
-        }
-      },
-      "bittrex": {
-        "type": "bittrex",
-        "name": "bittrex",
-        "params": {
-          "symbolAliases": {
-            "REP": "REPV2"
-          }
-        }
-      },
-      "curve": {
-        "type": "curve",
-        "name": "curve",
-        "params": {
-          "contracts": {
-            "RETH/WSTETH": "0x447Ddd4960d9fdBF6af9a790560d0AF76795CB08",
-            "ETH/STETH": "0xDC24316b9AE028F1497c275EB9192a3Ea0f67022"
-          }
-        }
-      },
-      "openexchangerates": {
-        "type": "openexchangerates",
-        "name": "openexchangerates",
-        "params": {
-          "apiKey": "API_KEY"
-        }
-      },
-      "poloniex": {
-        "type": "poloniex",
-        "name": "poloniex",
-        "params": {
-          "symbolAliases": {
-            "REP": "REPV2"
-          }
-        }
-      },
-      "sushiswap": {
-        "type": "sushiswap",
-        "name": "sushiswap",
-        "params": {
-          "symbolAliases": {
-            "ETH": "WETH",
-            "BTC": "WBTC",
-            "USD": "USDC"
-          },
-          "contracts": {
-            "YFI/WETH": "0x088ee5007c98a9677165d78dd2109ae4a3d04d0c"
-          }
-        }
-      },
-      "uniswap": {
-        "type": "uniswap",
-        "name": "uniswap",
-        "params": {
-          "symbolAliases": {
-            "ETH": "WETH",
-            "BTC": "WBTC",
-            "USD": "USDC"
-          },
-          "contracts": {
-            "WETH/USDC": "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc",
-            "LEND/WETH": "0xab3f9bf1d81ddb224a2014e98b238638824bcf20",
-            "LRC/WETH": "0x8878df9e1a7c87dcbf6d3999d997f262c05d8c70",
-            "PAXG/WETH": "0x9c4fe5ffd9a9fc5678cfbd93aa2d4fd684b67c4c",
-            "BAL/WETH": "0xa70d458a4d9bc0e6571565faee18a48da5c0d593",
-            "YFI/WETH": "0x2fdbadf3c4d5a8666bc06645b8358ab803996e28"
-          }
-        }
-      },
-      "uniswapV3": {
-        "type": "uniswapV3",
-        "name": "uniswapV3",
-        "params": {
-          "symbolAliases": {
-            "BTC": "WBTC",
-            "ETH": "WETH",
-            "USD": "USDC"
-          },
-          "contracts": {
-            "GNO/WETH": "0xf56d08221b5942c428acc5de8f78489a97fc5599",
-            "LINK/WETH": "0xa6cc3c2531fdaa6ae1a3ca84c2855806728693e8",
-            "USDC/WETH": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
-            "YFI/WETH": "0x04916039b1f59d9745bf6e0a21f191d1e0a84287"
-          }
-        }
-      },
-      "wsteth": {
-        "type": "wsteth",
-        "name": "wsteth",
-        "params": {
-          "contracts": {
-            "WSTETH/STETH": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
-          }
-        }
-      }
     },
     "priceModels": {
        "ETH/GSU": {
@@ -245,11 +135,7 @@ these should be installed on your system.
 
   Query USD price feeds
   
-  `cat $(which omnia)` and open the parent dictory in last line command 
-  You shuld have to change the setzer path in nix store where omnia is present
-  file name that will be changed : exec/source-setzer and bin/omnia
-  add `/usr/local/bin/setzer` in PATH enviroment variable.
-  
+
   ## Configuration
 
   * `SETZER_CACHE` - Cache directory (default: ~/.setzer)
@@ -257,6 +143,20 @@ these should be installed on your system.
   * `SETZER_TIMEOUT` - HTTP request timeout (default: 10) seconds
   
 
+  ## Usage
+
+  ```
+  Usage: setzer <command> [<args>]
+    or: setzer <command> --help
+
+  Commands:
+
+    help            Print help about setzer or one of its subcommands
+    pairs           List all supported pairs
+    price           Show price(s) for a given asset or pair
+    sources         Show price sources for a given asset or pair
+    test            Test all price feeds
+  ```
 
 # **SPIRE**
 >spire is installed throug oracle-suite project, so it is assumed to be installed on your system
@@ -297,7 +197,12 @@ This is based on libp2p which is a peer-to-peer networking protocol designed to 
     make test           # build and run integration tests
     omnia # for running the omnia 
     ```
-
+  
+  `cat $(which omnia)` and open the parent dictory in last line command 
+  You shuld have to change the setzer path in nix store where omnia is present
+  file name that will be changed : exec/source-setzer and bin/omnia
+  add `/usr/local/bin/setzer` in PATH enviroment variable.
+  
 > So  You should have spire, you will get it from this repository: https://github.com/makerdao/oracle-suite.git. After that you have to configure it. the guide is in the mentioned file named spire.md and sample config file named spire_feed1.json.
 
 >**you should have to export these env variable in your terminal** 

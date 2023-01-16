@@ -1,1 +1,0 @@
-spire agent -c /home/usman/docs/spire_feed1.json --log.verbosity debug
