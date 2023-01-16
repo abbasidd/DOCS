@@ -32,7 +32,7 @@ Goals of this new architecture are:
 ## Installation
 >**##PREREQUISITE** It is recommended that you install Go version 1.18.1 on your system.:
 
-    1 . git clone https://github.com/block360/oracle-suite.git
+    1 . git clone https://github.com/gsu-protocol/oracle-suite.git
 
     2 . cd oracle-suite
 
@@ -128,7 +128,7 @@ these should be installed on your system.
 
   # Installation
 
-      1. git clone https://github.com/block360/setzer.git
+      1. git clone https://github.com/gsu-protocol/setzer.git
       2. cd setzer
       3. make link
       4. make install
@@ -184,7 +184,7 @@ This is based on libp2p which is a peer-to-peer networking protocol designed to 
 
 
 # Omnia
->`git clone https://github.com/block360/omnia.git`
+>`git clone https://github.com/gsu-protocol/omnia.git`
 
 >`cd omnia` 
  ## installation
@@ -203,7 +203,7 @@ This is based on libp2p which is a peer-to-peer networking protocol designed to 
   file name that will be changed : exec/source-setzer and bin/omnia
   add `/usr/local/bin/setzer` in PATH enviroment variable.
   
-> So  You should have spire, you will get it from this repository: https://github.com/block360/oracle-suite.git. After that you have to configure it. the guide is in the mentioned file named spire.md and sample config file named spire_feed1.json.
+> So  You should have spire, you will get it from this repository: https://github.com/gsu-protocol/oracle-suite.git. After that you have to configure it. the guide is in the mentioned file named spire.md and sample config file named spire_feed1.json.
 
 >**you should have to export these env variable in your terminal** 
 
