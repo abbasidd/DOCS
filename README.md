@@ -36,7 +36,7 @@ Goals of this new architecture are:
 
     2 . cd oracle-suite
 
-    3 . export BUILD_DIR=`<Your bin path>` make; //like /usr/bin/ 
+    3 . export BUILD_DIR=`<Your bin path>` make
 
     **For running the the agent**:
     4 . gofer agent -c ./gofer.json --log.verbosity info
@@ -203,7 +203,7 @@ This is based on libp2p which is a peer-to-peer networking protocol designed to 
   file name that will be changed : exec/source-setzer and bin/omnia
   add `/usr/local/bin/setzer` in PATH enviroment variable.
   
-> So  You should have spire, you will get it from this repository: https://github.com/makerdao/oracle-suite.git. After that you have to configure it. the guide is in the mentioned file named spire.md and sample config file named spire_feed1.json.
+> So  You should have spire, you will get it from this repository: https://github.com/block360/oracle-suite.git. After that you have to configure it. the guide is in the mentioned file named spire.md and sample config file named spire_feed1.json.
 
 >**you should have to export these env variable in your terminal** 
 
