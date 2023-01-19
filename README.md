@@ -128,7 +128,7 @@ these should be installed on your system.
 
   # Installation
 
-      1. git clone https://github.com/gsu-protocol/setzer.git
+      1. git clone https://github.com/block360/setzer.git
       2. cd setzer
       3. make link
       4. make install
